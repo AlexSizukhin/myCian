@@ -9,10 +9,8 @@ import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import org.json.JSONArray
 import javax.inject.Inject
 
 
@@ -20,7 +18,9 @@ import javax.inject.Inject
 class MyCianApp:Application() {
 
     @Inject
-    public lateinit var cianServiceApi: CianServiceApi
+    public lateinit var cianLocationServiceApi: CianLocationServiceApi
+    @Inject
+    public lateinit var cianObjectServiceApi : CianObjectServiceApi
 
     private val compositeDisposable = CompositeDisposable()
     private val TAG = "Application"
@@ -30,7 +30,7 @@ class MyCianApp:Application() {
 
 
 
-        val alpha = cianServiceApi.getClusters(prepareGetCluster())
+        val alpha = cianLocationServiceApi.getClusters(prepareGetCluster())
         //val alpha = cianServiceApi.getClusters(prepareRequest())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -47,8 +47,23 @@ class MyCianApp:Application() {
                 {
                     Log.e(TAG, "${it.message}")
                 })
-
         compositeDisposable.add(alpha)
+
+        val beta = cianObjectServiceApi.getCianOject(type = "sale",objectID = 239952919)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    Log.d(TAG, "onNextCalled")
+                    Log.d(TAG,"#title is: ${it.title}")
+                    Log.d(TAG,"#description is: ${it.description}")
+                    Log.d(TAG,"total scripts : ${it.scripts.count()}")
+                },
+                {
+                    Log.e(TAG, "${it.message}")
+                })
+
+        compositeDisposable.add(beta)
     }
     private fun prepareRequest():RequestBody
     {

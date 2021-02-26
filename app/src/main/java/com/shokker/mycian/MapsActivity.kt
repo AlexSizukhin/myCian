@@ -1,10 +1,9 @@
 package com.shokker.mycian
 
+//import jdk.incubator.jpackage.internal.Arguments.CLIOptions.context
 import android.Manifest
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.webkit.WebView
@@ -12,12 +11,13 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -34,7 +34,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var myWebView:WebView
     @Inject
-    public lateinit var cianServiceApi: CianServiceApi
+    public lateinit var cianLocationServiceApi: CianLocationServiceApi
 
     private val compositeDisposable = CompositeDisposable()
     private val TAG = "Activity"
@@ -59,9 +59,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         doSmthWithMap()
 
     }
+
+    @SuppressLint("MissingPermission")
     private fun doSmthWithMap()
     {
-        val alpha = cianServiceApi.getClusters(prepareGetCluster())
+        val alpha = cianLocationServiceApi.getClusters(prepareGetCluster())
             //val alpha = cianServiceApi.getClusters(prepareRequest())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -83,6 +85,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     })
 
         compositeDisposable.add(alpha)
+
+/*
+        val rxLocation = RxLocation(this.applicationContext)
+
+        val locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(5000)
+
+        rxLocation.location().updates(locationRequest)
+                .flatMap { location -> rxLocation.geocoding().fromLocation(location).toObservable() }
+                .subscribe { address ->{
+                    Log.d(TAG,address.toString())
+                } }
+  */
+   /*     val rep = LocationRepository()
+        rep.emitCurrentLocation()
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                })
+*/
+
+    }
+    private fun loadCianObject(objectId: Int):CianObject
+    {
+        TODO()
     }
     private fun prepareGetCluster():GetClusterReq
     {
@@ -103,70 +132,113 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val location = getLastKnownLocation()
+        getLocationPermission()
+        if(mLocationPermissionGranted)
+            getDeviceLocation()
+  /*      val location = getLastKnownLocation()
         if(location!=null)
             mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
 
-
+*/
         // Add a marker in Sydney and move the camera
         /*val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 */
+        mMap.uiSettings.isScrollGesturesEnabled = false
+        mMap.uiSettings.isRotateGesturesEnabled = false
         mMap.setOnMarkerClickListener { Log.d(TAG, it.toString()) ;
             myWebView.loadUrl("https://www.cian.ru/sale/flat/${it.snippet}/")
             true}
     }
-    private fun getLastKnownLocation(): Location? {
-        val mLocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val providers: List<String> = mLocationManager.getProviders(true)// mLocationManager.getProviders(true)
-        var bestLocation: Location? = null
-        for (provider in providers) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                continue
-            }
 
-            val l: Location? = mLocationManager.getLastKnownLocation(provider)// .getLastKnownLocation(provider)
-            Log.d(TAG,"last known location, provider: ${provider}, location: ${l}")
-            if (l == null) {
-                Log.d(TAG,"location is NULL")
-                continue
-            }
-            if (bestLocation == null
-                    || l.accuracy < bestLocation.accuracy) {
-                Log.d(TAG,"found best last known location: ${bestLocation?.accuracy}")
-                bestLocation = l
-            }
-        }
-        return bestLocation
-    }
     val LOCATION_PERMISSION_REQUEST_CODE = 5322
     var mLocationPermissionGranted : Boolean = false
 
 /////////////////////////////////////////////////////////////////////////////
     private fun getLocationPermission()
     {
-        Log.d(TAG,"getLocation permissions: getting location permissions")
-        val permissions:Array<String> = arrayOf( Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION)
+        Log.d(TAG, "getLocation permissions: getting location permissions")
+        val permissions:Array<String> = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
 
         if(ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)
         {
             if(ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED)
             {
                 mLocationPermissionGranted  = true
+                Log.d(TAG, "Have a location permission")
             } else{
-                ActivityCompat.requestPermissions(this,permissions,
-                LOCATION_PERMISSION_REQUEST_CODE)
+                ActivityCompat.requestPermissions(this, permissions,
+                        LOCATION_PERMISSION_REQUEST_CODE)
             }
 
+        }
+    }
+
+    private lateinit var fuseLocationProviderClient : FusedLocationProviderClient
+    private var locationReq = LocationRequest.create()
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+            .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+            .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+    @SuppressLint("MissingPermission")
+    private fun getDeviceLocation()
+    {
+        Log.d(TAG, "Getting device location")
+
+        fuseLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        //fuseLocationProviderClient.requestLocationUpdates(locationReq, mLocationCallback, null);
+        fuseLocationProviderClient.requestLocationUpdates(locationReq,
+                object : LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult) {
+                        if (locationResult == null) {
+                            Log.d(TAG, "Location result it NULL")
+                            return
+                        }
+                        for (location in locationResult.locations) {
+                            if (location != null) {
+
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                        LatLng(location.latitude, location.longitude), 15.0f
+                                ))
+
+                                Log.d(TAG, "${location.latitude} x ${location.longitude}")
+
+                                val curScreen: LatLngBounds = mMap.getProjection()
+                                        .getVisibleRegion().latLngBounds
+                                val ul = curScreen.northeast
+                                val br = curScreen.southwest
+                            }
+                        }
+                    }
+                }, null);
+        try {
+            if(mLocationPermissionGranted)
+            {
+                val location = fuseLocationProviderClient.lastLocation
+                location.addOnCompleteListener({
+                    if (it.isSuccessful && it.isComplete && it.result != null) {
+                        Log.d(TAG, "onComplete found location ${it.result}")
+
+                    } else Log.d(TAG, "onComplete but NULL or ...")
+                })
+            }
+        }catch (e: Exception)
+        {
+            Log.e(TAG, "getDeviceLocation error ${e.message}")
+        }
+    }
+    var mLocationCallback: LocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            if (locationResult == null) {
+                Log.d(TAG, "Location result it NULL")
+                return
+            }
+            for (location in locationResult.locations) {
+                if (location != null) {
+                   Log.d(TAG, "${location.latitude} x ${location.longitude}")
+                }
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface CianServiceApi {
+interface CianLocationServiceApi {
     @POST("./search-engine/v1/get-clusters-for-map/")
     @Headers("Content-Type: application/json",
         "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:85.0) Gecko/20100101 Firefox/85.0",
