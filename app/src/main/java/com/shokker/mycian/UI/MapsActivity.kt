@@ -6,10 +6,12 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -18,7 +20,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.shokker.mycian.*
-import com.shokker.mycian.R
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
@@ -34,6 +35,8 @@ import javax.inject.Inject
 class MapsActivity : AppCompatActivity() { //, OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var filterFragment: FilterFragment
+    private lateinit var flatListFragment: FlatListFragment
     private lateinit var myWebView:WebView
     @Inject
     public lateinit var cianLocationServiceApi: CianLocationServiceApi
@@ -43,25 +46,34 @@ class MapsActivity : AppCompatActivity() { //, OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maps)
+        //setContentView(R.layout.activity_maps)
+        setContentView(R.layout.main_activity)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
+        filterFragment = supportFragmentManager.findFragmentById(R.id.filterFragment) as FilterFragment
+        flatListFragment=supportFragmentManager.findFragmentById(R.id.flatListFragment) as FlatListFragment
+
         //mapFragment.getMapAsync(this)
         val mapObservable: Single<GoogleMap> = Single.create(
-                object : SingleOnSubscribe<GoogleMap> {
-                    override fun subscribe(emitter: SingleEmitter<GoogleMap>) {
-                        mapFragment.getMapAsync(object : OnMapReadyCallback {
-                            override fun onMapReady(p0: GoogleMap?) {
-                                emitter.onSuccess(p0!!)
-                            }
-                        })
-                    }
+            object : SingleOnSubscribe<GoogleMap> {
+                override fun subscribe(emitter: SingleEmitter<GoogleMap>) {
+                    mapFragment.getMapAsync(object : OnMapReadyCallback {
+                        override fun onMapReady(p0: GoogleMap?) {
+                            emitter.onSuccess(p0!!)
+                        }
+                    })
                 }
+            }
         )
-        compositeDisposable.add(mapObservable.subscribe(Consumer { mMap = it; Log.d(TAG, "Map loaded") }))
+        compositeDisposable.add(mapObservable.subscribe(Consumer {
+            mMap = it; Log.d(
+            TAG,
+            "Map loaded"
+        )
+        }))
 
-
+/*
         myWebView = findViewById(R.id.webView)
         myWebView.settings.javaScriptEnabled = true
         myWebView.settings.setSupportMultipleWindows(false)
@@ -85,9 +97,21 @@ class MapsActivity : AppCompatActivity() { //, OnMapReadyCallback {
 
 
         doSmthWithMap()
-
+*/
     }
+    fun onFilterButtonClick(view: View)
+    {
+        Log.d(TAG, "Button ${view} clicked")
+        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+        //ft.hide(flatListFragment)
 
+        if(filterFragment.isHidden())
+            ft.show(filterFragment)
+        else
+            ft.hide(filterFragment)
+        ft.commit()
+    }
 
    /* private class WebviewJSInterface {
         @JavascriptInterface
@@ -109,21 +133,26 @@ class MapsActivity : AppCompatActivity() { //, OnMapReadyCallback {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                    {
-                        Log.d(TAG, "onNextCalled")
-                        it.filtered.forEach {
-                            Log.d(TAG, it.coordinates.toString())
-                            val marker = MarkerOptions().position(LatLng(it.coordinates.lat, it.coordinates.lng))
-                                    .title(it.minPrice.toString())
-                                    .snippet(it.clusterOfferIds.first().toString())
+                {
+                    Log.d(TAG, "onNextCalled")
+                    it.filtered.forEach {
+                        Log.d(TAG, it.coordinates.toString())
+                        val marker = MarkerOptions().position(
+                            LatLng(
+                                it.coordinates.lat,
+                                it.coordinates.lng
+                            )
+                        )
+                            .title(it.minPrice.toString())
+                            .snippet(it.clusterOfferIds.first().toString())
 
-                            val m = mMap.addMarker(marker)
+                        val m = mMap.addMarker(marker)
 
-                        }
-                    },
-                    {
-                        Log.e(TAG, "${it.message}")
-                    })
+                    }
+                },
+                {
+                    Log.e(TAG, "${it.message}")
+                })
 
         compositeDisposable.add(alpha)
 
@@ -199,18 +228,28 @@ class MapsActivity : AppCompatActivity() { //, OnMapReadyCallback {
     private fun getLocationPermission()
     {
         Log.d(TAG, "getLocation permissions: getting location permissions")
-        val permissions:Array<String> = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
+        val permissions:Array<String> = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
 
-        if(ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)
+        if(ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )== PackageManager.PERMISSION_GRANTED)
         {
-            if(ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED)
+            if(ContextCompat.checkSelfPermission(
+                    this.applicationContext,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )== PackageManager.PERMISSION_GRANTED)
             {
                 mLocationPermissionGranted  = true
                 Log.d(TAG, "Have a location permission")
             } else{
-                ActivityCompat.requestPermissions(this, permissions,
-                        LOCATION_PERMISSION_REQUEST_CODE)
+                ActivityCompat.requestPermissions(
+                    this, permissions,
+                    LOCATION_PERMISSION_REQUEST_CODE
+                )
             }
 
         }

@@ -4,11 +4,45 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/filterFloatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_margin="10dp"
+        android:onClick="onFilterButtonClick"
+        app:srcCompat="@drawable/ic_baseline_filter_alt_24"
+        android:elevation="10dp"
+        android:focusable="true"
+        android:contentDescription="@string/filter" />
 
-        app:srcCompat="@drawable/ic_baseline_filter_alt_24" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/filterFragment"
+        android:name="com.shokker.mycian.UI.FilterFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="100dp"
+        android:elevation="5dp"/>
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/flatListFragment"
+        android:name="com.shokker.mycian.UI.FlatListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="bottom"
+        android:layout_margin="10dp"
+        android:visibility="invisible"
+        android:elevation="3dp"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UI.MapsActivity"
+        android:elevation="1dp"/>
 </android.widget.FrameLayout>
