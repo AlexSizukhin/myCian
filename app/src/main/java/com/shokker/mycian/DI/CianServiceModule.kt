@@ -41,7 +41,7 @@ class CianServiceModule {
     fun provideCianHtmlServiceApi():CianObjectServiceApi
     {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
@@ -49,7 +49,7 @@ class CianServiceModule {
 
         val  retrofit = Retrofit.Builder()
             .baseUrl("https://www.cian.ru/")
-            //.client(okHttpClient)
+            .client(okHttpClient)
             .addConverterFactory(JspoonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
