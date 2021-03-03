@@ -1,4 +1,4 @@
-package com.shokker.formsignaler.UI
+package com.shokker.mycian.UI
 
 import android.content.Context
 import android.text.InputType
@@ -8,9 +8,12 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.View.OnKeyListener
 import android.widget.*
-import com.shokker.formsignaler.R
+import com.shokker.mycian.R
 import java.util.*
 import kotlin.math.absoluteValue
+import kotlin.math.pow
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 
 class MyNumberController : LinearLayout,  EventListener {
@@ -53,6 +56,7 @@ class MyNumberController : LinearLayout,  EventListener {
 
     var minValue: Double = Double.MIN_VALUE
     var maxValue: Double = Double.MAX_VALUE
+    var roundSignes: Int = 0
 
     override fun invalidate() {
         editText.setText(formatNumberToText(currentValue))
@@ -132,10 +136,10 @@ class MyNumberController : LinearLayout,  EventListener {
     fun formatNumberToText(value: Double):String
     {
         if(value.absoluteValue<0.3)
-            return (Math.round(value * 1000.0)/1000.0).toString()
+            return (Math.round(value * 1000.0)/1000.0).toFloat().toString(roundSignes)
         if(value.absoluteValue<10.0)
-            return (Math.round(value * 10.0)/10.0).toString()
-        return Math.ceil(value).toString()
+            return (Math.round(value * 10.0)/10.0).toFloat().toString(roundSignes)
+        return Math.ceil(value).toFloat().toString(roundSignes)
     }
 
     private fun parseXMLParameters(set: AttributeSet?)
@@ -152,6 +156,7 @@ class MyNumberController : LinearLayout,  EventListener {
                 currentValue = getFloat(R.styleable.MyNumberController_currentValue, tCurVal.toFloat()).toDouble()
                 updateOnSeek = getBoolean(R.styleable.MyNumberController_updateOnSeek, false)
                 description = getString(R.styleable.MyNumberController_description)?:""
+                roundSignes = getInt(R.styleable.MyNumberController_roundSignes,0)
             } finally {
                 recycle()
             }
@@ -215,5 +220,24 @@ class MyNumberController : LinearLayout,  EventListener {
         }
     }
 
+    /**
+     * Return the float receiver as a string display with numOfDec after the decimal (rounded)
+     * (e.g. 35.72 with numOfDec = 1 will be 35.7, 35.78 with numOfDec = 2 will be 35.80)
+     *
+     * @param numOfDec number of decimal places to show (receiver is rounded to that number)
+     * @return the String representation of the receiver up to numOfDec decimal places
+     */
+    fun Float.toString(numOfDec: Int): String {
+        val multi = 10f.pow(numOfDec)
+        //val big = (this.toDouble()*multi.toDouble()).roundToLong()
+        val rounded = (this.toDouble()*multi.toDouble()).roundToLong()/multi.toDouble()
+        /*val integerDigits = this.toInt()
+        val floatDigits = ((this - integerDigits) * 10f.pow(numOfDec)).roundToInt()*/
+        if(numOfDec>0)
+            //return "${integerDigits}.${floatDigits}"
+                return rounded.toString()
+        else
+            return rounded.toInt().toString()
+    }
 
     }

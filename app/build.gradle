@@ -34,6 +34,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    useLibrary 'android.test.mock'
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -69,4 +74,6 @@ dependencies {
     implementation 'pl.droidsonroids.retrofit2:converter-jspoon:1.3.2'
 
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+    testImplementation 'org.mockito:mockito-inline:2.8.47'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 }
