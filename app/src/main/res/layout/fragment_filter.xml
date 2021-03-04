@@ -13,11 +13,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-- <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sale"/>-->
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/filterType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:showText="true"
+                android:layout_centerHorizontal="true"
+                android:textOff="@string/rent"
+                android:textOn="@string/sale"
+                android:text="@string/filter_type" />
+<!--
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rent"/>
+-->
+        </LinearLayout>
 
     <com.shokker.mycian.UI.MyNumberController
         android:id="@+id/priceFrom"
         app:description="Price from ₽"
         app:minValue="1000"
+        app:currentValue="1000"
+        app:roundSignes="0"
         app:maxValue="1000000000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -25,6 +53,8 @@
         android:id="@+id/priceTo"
         app:description="Price up to ₽"
         app:minValue="1000"
+        app:currentValue="1000"
+        app:roundSignes="0"
         app:maxValue="1000000000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -32,6 +62,8 @@
         <com.shokker.mycian.UI.MyNumberController
             android:id="@+id/squareFrom"
             app:description="Area from m²"
+            app:minValue="1"
+            app:maxValue="1000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <com.shokker.mycian.UI.MyNumberController

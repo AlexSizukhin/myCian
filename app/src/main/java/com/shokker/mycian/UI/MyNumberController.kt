@@ -226,7 +226,7 @@ class MyNumberController : LinearLayout,  EventListener {
      *
      * @param numOfDec number of decimal places to show (receiver is rounded to that number)
      * @return the String representation of the receiver up to numOfDec decimal places
-     */
+     */         // todo Make groups
     fun Float.toString(numOfDec: Int): String {
         val multi = 10f.pow(numOfDec)
         //val big = (this.toDouble()*multi.toDouble()).roundToLong()
@@ -235,9 +235,14 @@ class MyNumberController : LinearLayout,  EventListener {
         val floatDigits = ((this - integerDigits) * 10f.pow(numOfDec)).roundToInt()*/
         if(numOfDec>0)
             //return "${integerDigits}.${floatDigits}"
-                return rounded.toString()
+                //return "%,.3d".format(Locale.US, rounded)
+            return rounded.toString()
         else
-            return rounded.toInt().toString()
+            return rounded.roundToLong().toString()
+                    //return "%,.3d".format(Locale.US,rounded.roundToLong().toDouble())
+
+
+       // return "%( .${numOfDec}f".format(Locale.ROOT , this)
     }
 
     }

@@ -25,7 +25,7 @@ class FloatRountTest {
             val f20 = 100.11f
             Assert.assertEquals("100.1", f20.toString(1))
             val f21 = 100.05f
-            Assert.assertEquals("100.1", f21.toString(1))
+            Assert.assertEquals( "100.1", f21.toString(1))
 
             val f3 = 101.1f
             Assert.assertEquals("100", f3.toString(-1))
@@ -33,7 +33,9 @@ class FloatRountTest {
             Assert.assertEquals("110", f4.toString(-1))
             val f5 = 107.15f
             Assert.assertEquals("107.2", f5.toString(1))
-
+/*          // todo add group testing
+            val f6 = 1023.12f
+            Assert.assertEquals("1 023",f6.toString(0))*/
             // todo test negative
         }
     }
