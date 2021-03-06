@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.shokker.mycian.MainContract
+import com.shokker.mycian.Model.ResultFlat
 import com.shokker.mycian.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FlatListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FlatListFragment : Fragment() {
+class FlatListFragment : Fragment(),MainContract.IFlatResultFragment {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -56,5 +58,17 @@ class FlatListFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun addFlatResult(resultList: ResultFlat) {
+        TODO("Not yet implemented")
+    }
+
+    override fun clearFlatResult() {
+        TODO("Not yet implemented")
+    }
+
+    override fun flatResultLoaded() {
+        TODO("Not yet implemented")
     }
 }

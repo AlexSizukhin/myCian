@@ -1,22 +1,22 @@
 package com.shokker.mycian
 
 import com.google.android.gms.maps.GoogleMap
+import com.shokker.mycian.Model.ClusterMark
 import com.shokker.mycian.Model.ResultFlat
 
 interface MainContract {
-    interface MyMapActivity
+    interface IMyMapActivity
     {
-        fun updateClustersOnMap(list : List<Any>) // todo  CHANGE TYPE
         fun clearNotUsed()
         fun allClustersLoaded()
-        fun addCluster()
+        fun addCluster(mark:ClusterMark)
 
 
         val googleMap: GoogleMap
-        val flatResult: FlatResult
+        val flatResult: IFlatResultFragment
     }
 
-    interface FlatResult
+    interface IFlatResultFragment
     {
         fun addFlatResult(resultList: ResultFlat)
         fun clearFlatResult()

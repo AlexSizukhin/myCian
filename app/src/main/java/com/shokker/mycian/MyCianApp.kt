@@ -22,6 +22,9 @@ class MyCianApp:Application() {
     @Inject
     public lateinit var cianObjectServiceApi : CianObjectServiceApi
 
+    @Inject
+    public lateinit var creator : God
+
     private val compositeDisposable = CompositeDisposable()
     private val TAG = "Application"
 

@@ -18,7 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.shokker.mycian.MockTestRunner"
     }
 
     buildTypes {
@@ -76,4 +76,11 @@ dependencies {
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
     testImplementation 'org.mockito:mockito-inline:2.8.47'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0-alpha04'
+    // For instrumented tests.
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
+    // ...with Kotlin.
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.28-alpha'
+    // ...with Java.
+    androidTestAnnotationProcessor 'com.google.dagger:hilt-android-compiler:2.28-alpha'
 }

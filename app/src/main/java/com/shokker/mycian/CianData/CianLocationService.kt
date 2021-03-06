@@ -3,6 +3,7 @@ package com.shokker.mycian
 import android.util.Log
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.shokker.mycian.Model.ClusterMark
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -46,14 +47,17 @@ data class GetClusterReq(
 data class BBox(val bottomRight: CianCoords,
                 val topLeft:CianCoords)
 
-data class MapResponse(val filtered:List<CianFiltered>) {}
+data class MapResponse(val filtered:List<CianFiltered>) {
+}
 data class CianFiltered(
     val clusterOfferIds: List<Long>,
     val maxPrice: Double,
     val minPrice: Double,
     val coordinates: CianCoords,
     val geohash: String
-)
+    ){
+    fun convertToClusterMark():ClusterMark{ TODO() }
+}
 
 data class CianCoords(
     val lat: Double,
