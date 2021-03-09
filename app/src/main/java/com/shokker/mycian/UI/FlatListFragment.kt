@@ -71,4 +71,10 @@ class FlatListFragment : Fragment(),MainContract.IFlatResultFragment {
     override fun flatResultLoaded() {
         TODO("Not yet implemented")
     }
+
+    override fun setOnClickFlat(onClickFlatFunc: (clickedFlat: ResultFlat) -> Unit) {
+        this.onClickFlatFunc = onClickFlatFunc
+    }
+
+    private var onClickFlatFunc: ((ResultFlat) -> Unit)? = null
 }

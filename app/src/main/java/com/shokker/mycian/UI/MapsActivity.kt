@@ -1,52 +1,48 @@
 package com.shokker.mycian.UI
 
 //import jdk.incubator.jpackage.internal.Arguments.CLIOptions.context
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.shokker.mycian.*
 import com.shokker.mycian.Model.ClusterMark
+import com.shokker.mycian.Model.FilterState
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
-import io.reactivex.SingleEmitter
-import io.reactivex.SingleOnSubscribe
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MapsActivity : AppCompatActivity(), MainContract.IMyMapActivity, God, OnMapReadyCallback { //, OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), MainContract.IMyMapActivity, IReactiveModel, OnMapReadyCallback, GoogleMap.OnCameraIdleListener { //, OnMapReadyCallback {
     ////////////////////////////////////////////////////////////////////////////////////////////
-    override fun clearNotUsed() {
-        TODO("Not yet implemented")
-    }
 
-    override fun allClustersLoaded() {
-        TODO("Not yet implemented")
-    }
+    override fun updateMarks(marks: List<ClusterMark>) {
+        marks.forEach{
+            if(markList.find { findIt-> it.location==findIt.location  } == null ) {
+                val m = mGoogleMap.addMarker( MarkerOptions().position(it.location) )
+                it.linkedMarker = m
+                markList.add( it )
+            }
+        }
+        markList.forEach{
+            if(marks.contains(it))
+                it.visible = true
+            else it.visible = false
+        }
 
-    override fun addCluster(mark: ClusterMark) {
-        TODO("Not yet implemented")
+        marks.forEach{
+            it.linkedMarker?.isVisible = it.visible
+        }
     }
+    private val markList = mutableListOf<ClusterMark>()
 
     private lateinit var mGoogleMap : GoogleMap
     override val googleMap: GoogleMap
@@ -55,6 +51,14 @@ class MapsActivity : AppCompatActivity(), MainContract.IMyMapActivity, God, OnMa
 
     override val flatResult: MainContract.IFlatResultFragment
         get() = flatListFragment
+
+    override fun setOnChangeFilter(onChangeFunc: (newState: FilterState) -> Unit) {
+           onChangeFlatFilter = onChangeFunc
+       }
+       private var onChangeFlatFilter: ((FilterState) -> Unit)? = null
+
+/*    override val flatFilter: MainContract.IFlatFilterFragment
+        get() = filterFragment*/
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     @Inject
@@ -78,30 +82,66 @@ class MapsActivity : AppCompatActivity(), MainContract.IMyMapActivity, God, OnMa
         filterFragment = supportFragmentManager.findFragmentById(R.id.filterFragment) as FilterFragment
         flatListFragment=supportFragmentManager.findFragmentById(R.id.flatListFragment) as FlatListFragment
 
+        flowProvider.currectActivity = this
         mapFragment.getMapAsync(this)
 
     }
     fun onFilterButtonClick(view: View)
     {
         Log.d(TAG, "Button ${view} clicked")
-        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-        //ft.hide(flatListFragment)
+        showFilterDialog(true)
 
-        if(filterFragment.isHidden())
-            ft.show(filterFragment)
-        else
-            ft.hide(filterFragment)
-        ft.commit()
+        Log.d(TAG,"current thread ${Thread.currentThread()}")
+        onChangeFlatFilter?.invoke( filterFragment.getCurrentFilterState() )           // todo Generate FilterState from Fragment
     }
 
     override fun onMapReady(p0: GoogleMap) {
         mGoogleMap = p0
+        mGoogleMap.setMinZoomPreference(15f)
         createAllFlows(flowProvider,this)       // prepare everything
+
+        mGoogleMap.setOnCameraIdleListener (this)
+        googleMap.addMarker(MarkerOptions().position(LatLng(55.849781977,37.7163779363)).title("AA"))
     }
 
     override fun onDestroy() {
-        compositeDisposable.clear()
+        clearFlows()
         super.onDestroy()
+    }
+
+    private var lastLatLngBounds: LatLngBounds? = null
+    override fun onCameraIdle() {
+//        Log.d(TAG,"OnCamIdle event calling ${onCamIdleEvent}")
+//        if(lastLatLngBounds!=mGoogleMap.projection.visibleRegion.latLngBounds)
+            onCamIdleEvent?.invoke(mGoogleMap.projection.visibleRegion.latLngBounds)
+//        lastLatLngBounds = mGoogleMap.projection.visibleRegion.latLngBounds
+    }
+
+
+    private var onCamIdleEvent: ((LatLngBounds) -> Unit)? = null
+    override fun setOnCameraIdle(onCameraIdelFunc: (locationBox: LatLngBounds) -> Unit) {
+        onCamIdleEvent = onCameraIdelFunc
+        Log.d(TAG,"OnCamIdle set")
+    }
+
+    override fun loadFilterState(filterState: FilterState) {
+        Log.d(TAG,"Setting filter state from DB ${filterState}")
+        this.filterFragment.setFilterState(filterState)
+    }
+
+    override fun showError(e: Throwable) {
+        Log.d(TAG,"${e.message}")
+        // todo make toast
+    }
+
+    override fun showFilterDialog(hideIfVisible: Boolean) {
+        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+
+        if(filterFragment.isHidden())
+            ft.show(filterFragment)
+        else if(hideIfVisible)
+            ft.hide(filterFragment)
+        ft.commit()
     }
 }

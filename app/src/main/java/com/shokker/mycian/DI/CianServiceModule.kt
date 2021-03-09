@@ -1,5 +1,6 @@
 package com.shokker.mycian.DI
 
+import android.util.Log
 import com.shokker.mycian.CianObjectServiceApi
 import com.shokker.mycian.CianLocationServiceApi
 import dagger.Module
@@ -12,15 +13,18 @@ import pl.droidsonroids.retrofit2.JspoonConverterFactory
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 class CianServiceModule {
+
     @Provides
     fun provideCianServiceApi(): CianLocationServiceApi
     {
+        Log.d("CianServiceModule","CianLocationServiceApi created ")
         val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC// BODY
+        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY //BASIC//
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
@@ -40,6 +44,7 @@ class CianServiceModule {
     @Provides
     fun provideCianHtmlServiceApi():CianObjectServiceApi
     {
+        Log.d("CianServiceModule","CianObjectServiceApi created ")
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
 

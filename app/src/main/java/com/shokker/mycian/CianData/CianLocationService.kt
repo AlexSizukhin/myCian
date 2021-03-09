@@ -1,6 +1,7 @@
 package com.shokker.mycian
 
 import android.util.Log
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.shokker.mycian.Model.ClusterMark
@@ -28,7 +29,9 @@ interface CianLocationServiceApi {
 
     @POST("search-engine/v1/get-clusters-for-map/")
     @Headers("Content-Type: application/json",
+
         "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:85.0) Gecko/20100101 Firefox/85.0")
+
     fun getClusters(@Body body:GetClusterReq):Observable<MapResponse>
 
 
@@ -38,7 +41,8 @@ data class GetClusterReq(
     //val bbox: JsonArray,
 /*    val bbox: Map<String, CianCoords> = mapOf("bottomRight" to ,
                                                 "topLeft" to ),*/
-    val bbox : List<BBox> = listOf(BBox(CianCoords(55.844079851698844,37.73803710937499),CianCoords(55.85644056569717,37.694091796874986))),
+    //val bbox : List<BBox> = listOf(BBox(CianCoords(55.844079851698844,37.73803710937499),CianCoords(55.85644056569717,37.694091796874986))),
+    val bbox : List<BBox> = listOf(BBox(CianCoords(55.707851258568674,37.54028320312501),CianCoords( 55.720255441857994,37.4853515625))),
     val extended: Boolean = true,
     val subdomain: String = "www",
     val zoom: Int = 15,
@@ -56,7 +60,11 @@ data class CianFiltered(
     val coordinates: CianCoords,
     val geohash: String
     ){
-    fun convertToClusterMark():ClusterMark{ TODO() }
+    @Deprecated("Dont use, use mapper in JX instead")
+    fun convertToClusterMark():ClusterMark
+    {
+        return ClusterMark(LatLng(coordinates.lat,coordinates.lng))
+    }
 }
 
 data class CianCoords(

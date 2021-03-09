@@ -1,0 +1,51 @@
+{
+  "bbox": [
+    {
+      "bottomRight": {
+        "lat": 55.707851258568674,
+        "lng": 37.562255859375
+      },
+      "topLeft": {
+        "lat": 55.726456050247414,
+        "lng": 37.47436523437499
+      }
+    }
+  ],
+  "extended": true,
+  "jsonQuery": {
+    "_type": "flatsale",
+    "engine_version": {
+      "type": "term",
+      "value": 2
+    },
+    "price": {
+      "type": "range",
+      "value": {
+        "gte": 1590000,
+        "lte": 9000000
+      }
+    },
+    "region": {
+      "type": "terms",
+      "value": [
+        1
+      ]
+    },
+    "room": {
+      "type": "terms",
+      "value": [
+        1,
+        2
+      ]
+    },
+    "total_area": {
+      "type": "range",
+      "value": {
+        "gte": 15,
+        "lte": 99
+      }
+    }
+  },
+  "subdomain": "www",
+  "zoom": 15
+}

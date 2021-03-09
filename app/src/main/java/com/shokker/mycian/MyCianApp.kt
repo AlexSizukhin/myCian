@@ -22,9 +22,6 @@ class MyCianApp:Application() {
     @Inject
     public lateinit var cianObjectServiceApi : CianObjectServiceApi
 
-    @Inject
-    public lateinit var creator : God
-
     private val compositeDisposable = CompositeDisposable()
     private val TAG = "Application"
 
@@ -51,7 +48,7 @@ class MyCianApp:Application() {
                     Log.e(TAG, "${it.message}")
                 })
         compositeDisposable.add(alpha)
-
+/*
         val beta = cianObjectServiceApi.getCianOject(type = "sale",objectID = 239952919)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -66,7 +63,7 @@ class MyCianApp:Application() {
                     Log.e(TAG, "${it.message}")
                 })
 
-        compositeDisposable.add(beta)
+        compositeDisposable.add(beta)*/
     }
     private fun prepareRequest():RequestBody
     {
@@ -83,7 +80,7 @@ class MyCianApp:Application() {
         )*/
         val bboxString ="[{\"bottomRight\":{\"lat\":55.78840776880526,\"lng\":37.7490234375},\"topLeft\":{\"lat\":55.806974017300476,\"lng\":37.672119140625}}]"
         val bbox: JsonArray = Gson().fromJson(bboxString, JsonArray::class.java)
-
+// _type: flatrent   _type: flatrent
         val jsonSubObject ="{\"region\":{\"type\":\"terms\",\"value\":[1]},\"_type\":\"flatsale\",\"engine_version\":{\"type\":\"term\",\"value\":2},\"room\":{\"type\":\"terms\",\"value\":[1,2]}}"
         val convertedObject: JsonObject = Gson().fromJson(jsonSubObject, JsonObject::class.java)
         return GetClusterReq(jsonQuery = convertedObject)

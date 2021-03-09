@@ -1,0 +1,1508 @@
+{
+  "extendedJsonQuery": {
+    "_type": "flatsale",
+    "engine_version": {
+      "type": "term",
+      "value": 2
+    },
+    "room": {
+      "type": "terms",
+      "value": [
+        1,
+        2
+      ]
+    }
+  },
+  "bbox": {
+    "bottomRight": {
+      "lng": 37.5402832031,
+      "lat": 55.7078512586
+    },
+    "topLeft": {
+      "lng": 37.4853515625,
+      "lat": 55.7202554419
+    }
+  },
+  "precision": 9,
+  "queryString": "deal_type=sale&engine_version=2&offer_type=flat&region=1&room1=1&room2=1",
+  "jsonQuery": {
+    "region": {
+      "type": "terms",
+      "value": [
+        1
+      ]
+    },
+    "_type": "flatsale",
+    "engine_version": {
+      "type": "term",
+      "value": 2
+    },
+    "room": {
+      "type": "terms",
+      "value": [
+        1,
+        2
+      ]
+    }
+  },
+  "offersCount": 25207,
+  "extendedQueryString": "deal_type=sale&engine_version=2&offer_type=flat&room1=1&room2=1",
+  "isNewobject": false,
+  "filtered": [
+    {
+      "minPrice": 11673936,
+      "geohash": "ucfsvqb6s",
+      "coordinates": {
+        "lng": 37.4968558922,
+        "lat": 55.7162311021
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.496856,
+          "lat": 55.716231
+        },
+        "topLeft": {
+          "lng": 37.496855,
+          "lat": 55.716232
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 33161616,
+      "clusterOfferIds": [
+        251086650,
+        251086667,
+        251086678,
+        251086682,
+        251086716,
+        251086720,
+        251086733,
+        251086739,
+        251086762,
+        251086773
+      ],
+      "hasNewobject": true,
+      "count": 33,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 23500000,
+      "geohash": "ucfsvq5rg",
+      "coordinates": {
+        "lng": 37.5009529665,
+        "lat": 55.7130399439
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.500953,
+          "lat": 55.713039
+        },
+        "topLeft": {
+          "lng": 37.500952,
+          "lat": 55.71304
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 39900000,
+      "clusterOfferIds": [
+        201892310,
+        202232733,
+        202235422,
+        226156945,
+        226157618,
+        227722505,
+        228724332,
+        228724337,
+        231118066,
+        237042601
+      ],
+      "hasNewobject": false,
+      "count": 27,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 30379098,
+      "geohash": "ucfsvt9c6",
+      "coordinates": {
+        "lng": 37.509829402,
+        "lat": 55.7091603801
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.50983,
+          "lat": 55.70916
+        },
+        "topLeft": {
+          "lng": 37.509829,
+          "lat": 55.709161
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 50423804,
+      "clusterOfferIds": [
+        242579703,
+        248915710,
+        248915712,
+        248915716,
+        248915725,
+        249015209,
+        249015211,
+        249015213,
+        249015214,
+        250445582
+      ],
+      "hasNewobject": true,
+      "count": 18,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 17900000,
+      "geohash": "ucfsvmyhe",
+      "coordinates": {
+        "lng": 37.5047078915,
+        "lat": 55.7111079991
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.504708,
+          "lat": 55.711107
+        },
+        "topLeft": {
+          "lng": 37.504707,
+          "lat": 55.711108
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 23700000,
+      "clusterOfferIds": [
+        223226299,
+        223554892,
+        225231032,
+        241083156,
+        243922882,
+        246877028,
+        248471859,
+        249008909,
+        251722708
+      ],
+      "hasNewobject": false,
+      "count": 9,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 12394074,
+      "geohash": "ucfsvqb64",
+      "coordinates": {
+        "lng": 37.4967737496,
+        "lat": 55.7161534857
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.496774,
+          "lat": 55.716153
+        },
+        "topLeft": {
+          "lng": 37.496773,
+          "lat": 55.716154
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 20839068,
+      "clusterOfferIds": [
+        249891038,
+        249891043,
+        249891063,
+        249891072,
+        249891100,
+        250542727,
+        252224673
+      ],
+      "hasNewobject": true,
+      "count": 7,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 24690000,
+      "geohash": "ucfsvq44x",
+      "coordinates": {
+        "lng": 37.4993899092,
+        "lat": 55.7121269871
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.49939,
+          "lat": 55.712126
+        },
+        "topLeft": {
+          "lng": 37.499389,
+          "lat": 55.712127
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 45000000,
+      "clusterOfferIds": [
+        234369967,
+        246709852,
+        248893854,
+        249594100,
+        250493197,
+        251747961
+      ],
+      "hasNewobject": false,
+      "count": 6,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 10500000,
+      "geohash": "ucfsvx5ec",
+      "coordinates": {
+        "lng": 37.5121909194,
+        "lat": 55.7178469654
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.512191,
+          "lat": 55.717846
+        },
+        "topLeft": {
+          "lng": 37.51219,
+          "lat": 55.717847
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 29500000,
+      "clusterOfferIds": [
+        243383421,
+        243420256,
+        245765248,
+        249467165,
+        252087426
+      ],
+      "hasNewobject": false,
+      "count": 5,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 28500000,
+      "geohash": "ucfsvqv96",
+      "coordinates": {
+        "lng": 37.5039979443,
+        "lat": 55.7160369772
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.503998,
+          "lat": 55.716036
+        },
+        "topLeft": {
+          "lng": 37.503997,
+          "lat": 55.716037
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 72000000,
+      "clusterOfferIds": [
+        203857204,
+        233513671,
+        241201247,
+        244765025,
+        249409106
+      ],
+      "hasNewobject": false,
+      "count": 5,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 14596200.000000002,
+      "geohash": "ucfsvqbpw",
+      "coordinates": {
+        "lng": 37.4965958856,
+        "lat": 55.7171019819
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.496596,
+          "lat": 55.717101
+        },
+        "topLeft": {
+          "lng": 37.496595,
+          "lat": 55.717102
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 30065600,
+      "clusterOfferIds": [
+        249891144,
+        249891147,
+        249891155,
+        249891169,
+        249891174
+      ],
+      "hasNewobject": true,
+      "count": 5,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 17000000,
+      "geohash": "ucfsvn478",
+      "coordinates": {
+        "lng": 37.4884488434,
+        "lat": 55.7122999895
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.488449,
+          "lat": 55.712299
+        },
+        "topLeft": {
+          "lng": 37.488448,
+          "lat": 55.7123
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 23500000,
+      "clusterOfferIds": [
+        250387023,
+        250686787,
+        250688030,
+        251487154,
+        251612912
+      ],
+      "hasNewobject": false,
+      "count": 5,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 14500000,
+      "geohash": "ucfsvtkd1",
+      "coordinates": {
+        "lng": 37.5135648809,
+        "lat": 55.7079069503
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.513565,
+          "lat": 55.707906
+        },
+        "topLeft": {
+          "lng": 37.513564,
+          "lat": 55.707907
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 16200000.000000002,
+      "clusterOfferIds": [
+        251539955,
+        251550733,
+        251694771,
+        251898827
+      ],
+      "hasNewobject": false,
+      "count": 4,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 16852000,
+      "geohash": "ucfsvr115",
+      "coordinates": {
+        "lng": 37.4978628941,
+        "lat": 55.7173349988
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.497863,
+          "lat": 55.717334
+        },
+        "topLeft": {
+          "lng": 37.497862,
+          "lat": 55.717335
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 17500000,
+      "clusterOfferIds": [
+        243658980,
+        245548425,
+        247177053,
+        248579407
+      ],
+      "hasNewobject": true,
+      "count": 4,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 17300000,
+      "geohash": "ucfsvr0j9",
+      "coordinates": {
+        "lng": 37.4963898584,
+        "lat": 55.7181159407
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.49639,
+          "lat": 55.718115
+        },
+        "topLeft": {
+          "lng": 37.496389,
+          "lat": 55.718116
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 18500000,
+      "clusterOfferIds": [
+        243373402,
+        248664241,
+        251965255
+      ],
+      "hasNewobject": true,
+      "count": 3,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 43000000,
+      "geohash": "ucfsvqqwf",
+      "coordinates": {
+        "lng": 37.5053549744,
+        "lat": 55.7142419927
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.505355,
+          "lat": 55.714241
+        },
+        "topLeft": {
+          "lng": 37.505354,
+          "lat": 55.714242
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 48000000,
+      "clusterOfferIds": [
+        228909272,
+        251559215,
+        251595740
+      ],
+      "hasNewobject": false,
+      "count": 3,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 23800000,
+      "geohash": "ucfsvytyc",
+      "coordinates": {
+        "lng": 37.5262679905,
+        "lat": 55.7156009506
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.526268,
+          "lat": 55.7156
+        },
+        "topLeft": {
+          "lng": 37.526267,
+          "lat": 55.715601
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 32000000,
+      "clusterOfferIds": [
+        229234500,
+        249356178
+      ],
+      "hasNewobject": false,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 45000000,
+      "geohash": "ucfsvy0b5",
+      "coordinates": {
+        "lng": 37.5195118412,
+        "lat": 55.711680986
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.519512,
+          "lat": 55.71168
+        },
+        "topLeft": {
+          "lng": 37.519511,
+          "lat": 55.711681
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 50000000,
+      "clusterOfferIds": [
+        165350611,
+        250334517
+      ],
+      "hasNewobject": false,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 11180000.000000002,
+      "geohash": "ucfsvw55u",
+      "coordinates": {
+        "lng": 37.5116249733,
+        "lat": 55.7123199385
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.511625,
+          "lat": 55.712319
+        },
+        "topLeft": {
+          "lng": 37.511624,
+          "lat": 55.71232
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 12500000,
+      "clusterOfferIds": [
+        245279642,
+        252052599
+      ],
+      "hasNewobject": false,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 29900000.000000004,
+      "geohash": "ucfsvr69f",
+      "coordinates": {
+        "lng": 37.499892991,
+        "lat": 55.7188719884
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.499893,
+          "lat": 55.718871
+        },
+        "topLeft": {
+          "lng": 37.499892,
+          "lat": 55.718872
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 65000000,
+      "clusterOfferIds": [
+        206481548,
+        239000644
+      ],
+      "hasNewobject": false,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 52155442,
+      "geohash": "ucfsvqz94",
+      "coordinates": {
+        "lng": 37.5067649782,
+        "lat": 55.7160019409
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.506765,
+          "lat": 55.716001
+        },
+        "topLeft": {
+          "lng": 37.506764,
+          "lat": 55.716002
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 59330625,
+      "clusterOfferIds": [
+        206188655,
+        239004879
+      ],
+      "hasNewobject": false,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 51300000,
+      "geohash": "ucfsvqxuz",
+      "coordinates": {
+        "lng": 37.5073039345,
+        "lat": 55.7152709551
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.507304,
+          "lat": 55.71527
+        },
+        "topLeft": {
+          "lng": 37.507303,
+          "lat": 55.715271
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 51320000,
+      "clusterOfferIds": [
+        246853107,
+        248444908
+      ],
+      "hasNewobject": false,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 14350000,
+      "geohash": "ucfsvnr0u",
+      "coordinates": {
+        "lng": 37.495149672,
+        "lat": 55.7132055704
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.49515,
+          "lat": 55.713205
+        },
+        "topLeft": {
+          "lng": 37.495149,
+          "lat": 55.713206
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 14400000,
+      "clusterOfferIds": [
+        251389496,
+        251389661
+      ],
+      "hasNewobject": true,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 11200000.000000002,
+      "geohash": "ucfsvn14k",
+      "coordinates": {
+        "lng": 37.4869119376,
+        "lat": 55.7120969798
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.486912,
+          "lat": 55.712096
+        },
+        "topLeft": {
+          "lng": 37.486911,
+          "lat": 55.712097
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 11200000.000000002,
+      "clusterOfferIds": [
+        214460528,
+        236858940
+      ],
+      "hasNewobject": false,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 21500000,
+      "geohash": "ucfsvjfxe",
+      "coordinates": {
+        "lng": 37.4889519252,
+        "lat": 55.7115949877
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.488952,
+          "lat": 55.711594
+        },
+        "topLeft": {
+          "lng": 37.488951,
+          "lat": 55.711595
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 23000000,
+      "clusterOfferIds": [
+        250127868,
+        251854454
+      ],
+      "hasNewobject": false,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 9750000,
+      "geohash": "ucfsvj2tz",
+      "coordinates": {
+        "lng": 37.4863639288,
+        "lat": 55.7085719705
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.486364,
+          "lat": 55.708571
+        },
+        "topLeft": {
+          "lng": 37.486363,
+          "lat": 55.708572
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 12500000,
+      "clusterOfferIds": [
+        249488942,
+        251869783
+      ],
+      "hasNewobject": false,
+      "count": 2,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 43000000,
+      "geohash": "ucfsvzm64",
+      "coordinates": {
+        "lng": 37.5256209075,
+        "lat": 55.71891197
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.525621,
+          "lat": 55.718911
+        },
+        "topLeft": {
+          "lng": 37.52562,
+          "lat": 55.718912
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 43000000,
+      "clusterOfferIds": [
+        251561764
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 12300000,
+      "geohash": "ucfsvz6z4",
+      "coordinates": {
+        "lng": 37.5221979059,
+        "lat": 55.7197589613
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.522198,
+          "lat": 55.719758
+        },
+        "topLeft": {
+          "lng": 37.522197,
+          "lat": 55.719759
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 12300000,
+      "clusterOfferIds": [
+        246696902
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 17000000,
+      "geohash": "ucfsvz50w",
+      "coordinates": {
+        "lng": 37.5226919353,
+        "lat": 55.7172639202
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.522692,
+          "lat": 55.717263
+        },
+        "topLeft": {
+          "lng": 37.522691,
+          "lat": 55.717264
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 17000000,
+      "clusterOfferIds": [
+        250192901
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 65000000,
+      "geohash": "ucfsvyktg",
+      "coordinates": {
+        "lng": 37.524623964,
+        "lat": 55.714038983
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.524624,
+          "lat": 55.714038
+        },
+        "topLeft": {
+          "lng": 37.524623,
+          "lat": 55.714039
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 65000000,
+      "clusterOfferIds": [
+        247510332
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 14590000,
+      "geohash": "ucfsvy6n2",
+      "coordinates": {
+        "lng": 37.5210658461,
+        "lat": 55.7141509652
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.521066,
+          "lat": 55.71415
+        },
+        "topLeft": {
+          "lng": 37.521065,
+          "lat": 55.714151
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 14590000,
+      "clusterOfferIds": [
+        202441996
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 11000000,
+      "geohash": "ucfsvy37u",
+      "coordinates": {
+        "lng": 37.5202219561,
+        "lat": 55.7137249969
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.520222,
+          "lat": 55.713724
+        },
+        "topLeft": {
+          "lng": 37.520221,
+          "lat": 55.713725
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 11000000,
+      "clusterOfferIds": [
+        250707289
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 14350000,
+      "geohash": "ucfsvx6bs",
+      "coordinates": {
+        "lng": 37.511274945,
+        "lat": 55.7186539751
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.511275,
+          "lat": 55.718653
+        },
+        "topLeft": {
+          "lng": 37.511274,
+          "lat": 55.718654
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 14350000,
+      "clusterOfferIds": [
+        251701940
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 30000000,
+      "geohash": "ucfsvx5rh",
+      "coordinates": {
+        "lng": 37.5119748339,
+        "lat": 55.7183749415
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.511975,
+          "lat": 55.718374
+        },
+        "topLeft": {
+          "lng": 37.511974,
+          "lat": 55.718375
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 30000000,
+      "clusterOfferIds": [
+        237997828
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 15300000,
+      "geohash": "ucfsvwrx5",
+      "coordinates": {
+        "lng": 37.5177608617,
+        "lat": 55.7142669708
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.517761,
+          "lat": 55.714266
+        },
+        "topLeft": {
+          "lng": 37.51776,
+          "lat": 55.714267
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 15300000,
+      "clusterOfferIds": [
+        249964715
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 11490000,
+      "geohash": "ucfsvwq33",
+      "coordinates": {
+        "lng": 37.5159818865,
+        "lat": 55.7132879645
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.515982,
+          "lat": 55.713287
+        },
+        "topLeft": {
+          "lng": 37.515981,
+          "lat": 55.713288
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 11490000,
+      "clusterOfferIds": [
+        250680792
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 12200000,
+      "geohash": "ucfsvw18j",
+      "coordinates": {
+        "lng": 37.509621866,
+        "lat": 55.7117009349
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.509622,
+          "lat": 55.7117
+        },
+        "topLeft": {
+          "lng": 37.509621,
+          "lat": 55.711701
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 12200000,
+      "clusterOfferIds": [
+        235358090
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 8950000,
+      "geohash": "ucfsvtesw",
+      "coordinates": {
+        "lng": 37.5124249421,
+        "lat": 55.709737977
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.512425,
+          "lat": 55.709737
+        },
+        "topLeft": {
+          "lng": 37.512424,
+          "lat": 55.709738
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 8950000,
+      "clusterOfferIds": [
+        245068871
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 18300000,
+      "geohash": "ucfsvtc79",
+      "coordinates": {
+        "lng": 37.5091189519,
+        "lat": 55.7109249383
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.509119,
+          "lat": 55.710924
+        },
+        "topLeft": {
+          "lng": 37.509118,
+          "lat": 55.710925
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 18300000,
+      "clusterOfferIds": [
+        250271802
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 24578889.999999996,
+      "geohash": "ucfsvr1h6",
+      "coordinates": {
+        "lng": 37.4978268519,
+        "lat": 55.7179229893
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.497827,
+          "lat": 55.717922
+        },
+        "topLeft": {
+          "lng": 37.497826,
+          "lat": 55.717923
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 24578889.999999996,
+      "clusterOfferIds": [
+        249891325
+      ],
+      "hasNewobject": true,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 43000000,
+      "geohash": "ucfsvqx4r",
+      "coordinates": {
+        "lng": 37.5062528439,
+        "lat": 55.7148149796
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.506253,
+          "lat": 55.714814
+        },
+        "topLeft": {
+          "lng": 37.506252,
+          "lat": 55.714815
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 43000000,
+      "clusterOfferIds": [
+        247716599
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 20425500,
+      "geohash": "ucfsvppfx",
+      "coordinates": {
+        "lng": 37.496335879,
+        "lat": 55.7175939996
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.496336,
+          "lat": 55.717593
+        },
+        "topLeft": {
+          "lng": 37.496335,
+          "lat": 55.717594
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 20425500,
+      "clusterOfferIds": [
+        249890945
+      ],
+      "hasNewobject": true,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 15800000,
+      "geohash": "ucfsvn552",
+      "coordinates": {
+        "lng": 37.4895089865,
+        "lat": 55.7122339401
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.489509,
+          "lat": 55.712233
+        },
+        "topLeft": {
+          "lng": 37.489508,
+          "lat": 55.712234
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 15800000,
+      "clusterOfferIds": [
+        248447567
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 17000000,
+      "geohash": "ucfsvn4zp",
+      "coordinates": {
+        "lng": 37.4894459546,
+        "lat": 55.71288798
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.489446,
+          "lat": 55.712887
+        },
+        "topLeft": {
+          "lng": 37.489445,
+          "lat": 55.712888
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 17000000,
+      "clusterOfferIds": [
+        251931493
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 17000000,
+      "geohash": "ucfsvn3e4",
+      "coordinates": {
+        "lng": 37.4875048734,
+        "lat": 55.713566998
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.487505,
+          "lat": 55.713566
+        },
+        "topLeft": {
+          "lng": 37.487504,
+          "lat": 55.713567
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 17000000,
+      "clusterOfferIds": [
+        250311761
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 8300000,
+      "geohash": "ucfsvn2nq",
+      "coordinates": {
+        "lng": 37.4856279977,
+        "lat": 55.7141399849
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.485628,
+          "lat": 55.714139
+        },
+        "topLeft": {
+          "lng": 37.485627,
+          "lat": 55.71414
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 8300000,
+      "clusterOfferIds": [
+        240891994
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 12500000,
+      "geohash": "ucfsvmsff",
+      "coordinates": {
+        "lng": 37.5029828958,
+        "lat": 55.7094289362
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.502983,
+          "lat": 55.709428
+        },
+        "topLeft": {
+          "lng": 37.502982,
+          "lat": 55.709429
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 12500000,
+      "clusterOfferIds": [
+        251796874
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 11800000,
+      "geohash": "ucfsvms0p",
+      "coordinates": {
+        "lng": 37.5021478906,
+        "lat": 55.7089419477
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.502148,
+          "lat": 55.708941
+        },
+        "topLeft": {
+          "lng": 37.502147,
+          "lat": 55.708942
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 11800000,
+      "clusterOfferIds": [
+        250338973
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 11000000,
+      "geohash": "ucfsvjd56",
+      "coordinates": {
+        "lng": 37.4882149883,
+        "lat": 55.709499931
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.488215,
+          "lat": 55.709499
+        },
+        "topLeft": {
+          "lng": 37.488214,
+          "lat": 55.7095
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 11000000,
+      "clusterOfferIds": [
+        249727932
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 12300000,
+      "geohash": "ucfsvjc9r",
+      "coordinates": {
+        "lng": 37.4877298437,
+        "lat": 55.7105189189
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.48773,
+          "lat": 55.710518
+        },
+        "topLeft": {
+          "lng": 37.487729,
+          "lat": 55.710519
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 12300000,
+      "clusterOfferIds": [
+        250297632
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    },
+    {
+      "minPrice": 9500000,
+      "geohash": "ucfsvj939",
+      "coordinates": {
+        "lng": 37.4871459603,
+        "lat": 55.7092109229
+      },
+      "bbox": {
+        "bottomRight": {
+          "lng": 37.487146,
+          "lat": 55.70921
+        },
+        "topLeft": {
+          "lng": 37.487145,
+          "lat": 55.709211
+        }
+      },
+      "favoriteIds": [],
+      "maxPrice": 9500000,
+      "clusterOfferIds": [
+        251618880
+      ],
+      "hasNewobject": false,
+      "count": 1,
+      "isViewed": false,
+      "specialPromo": null,
+      "subdomain": "www"
+    }
+  ],
+  "extended": []
+}
