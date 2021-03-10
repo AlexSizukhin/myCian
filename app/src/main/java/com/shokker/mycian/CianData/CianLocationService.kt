@@ -37,11 +37,6 @@ interface CianLocationServiceApi {
 
 }
 data class GetClusterReq(
-//    val bbox:BBox,
-    //val bbox: JsonArray,
-/*    val bbox: Map<String, CianCoords> = mapOf("bottomRight" to ,
-                                                "topLeft" to ),*/
-    //val bbox : List<BBox> = listOf(BBox(CianCoords(55.844079851698844,37.73803710937499),CianCoords(55.85644056569717,37.694091796874986))),
     val bbox : List<BBox> = listOf(BBox(CianCoords(55.707851258568674,37.54028320312501),CianCoords( 55.720255441857994,37.4853515625))),
     val extended: Boolean = true,
     val subdomain: String = "www",
@@ -59,13 +54,7 @@ data class CianFiltered(
     val minPrice: Double,
     val coordinates: CianCoords,
     val geohash: String
-    ){
-    @Deprecated("Dont use, use mapper in JX instead")
-    fun convertToClusterMark():ClusterMark
-    {
-        return ClusterMark(LatLng(coordinates.lat,coordinates.lng))
-    }
-}
+    )
 
 data class CianCoords(
     val lat: Double,

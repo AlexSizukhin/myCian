@@ -62,13 +62,13 @@ open class FlowProviderImpl
     lateinit var localStorage: LocalStorage
 
     @SuppressLint("MissingPermission")
-    override fun currentLocation(): Flowable<Location> {
+    override fun currentLocation(currentActivity: MainContract.IMyMapActivity): Flowable<Location> {
         val locationReq = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
-        val fuseLocationProviderClient = LocationServices.getFusedLocationProviderClient(currectActivity!!)
+        val fuseLocationProviderClient = LocationServices.getFusedLocationProviderClient(currentActivity as Activity )
 
         return Flowable.create(object : FlowableOnSubscribe<Location>
         {
@@ -83,13 +83,13 @@ open class FlowProviderImpl
         },BackpressureStrategy.LATEST)
     }
 
-    override fun mapLocationBox(map: GoogleMap): Flowable<LatLngBounds> {
+    override fun mapLocationBox(currentActivity: MainContract.IMyMapActivity): Flowable<LatLngBounds> {
         Log.d(TAG,"Location Box flow creating")
         Log.d(TAG,"Current thread ${Thread.currentThread()}")
         return Flowable.create(object: FlowableOnSubscribe<LatLngBounds>
         {
             override fun subscribe(emitter: FlowableEmitter<LatLngBounds>) {
-                Log.d(TAG, "Setting OnCameraIdleListener on ${map} with ${emitter}")
+                Log.d(TAG, "Setting OnCameraIdleListener with ${emitter}")
                 Log.d(TAG,"Current thread ${Thread.currentThread()}")
 /*                map.setOnCameraIdleListener { object : GoogleMap.OnCameraIdleListener{
                     override fun onCameraIdle() {
@@ -97,20 +97,20 @@ open class FlowProviderImpl
                         Log.d(TAG,"On camera idle at ${map.projection.visibleRegion.latLngBounds}")
                         Log.d(TAG,"Current thread ${Thread.currentThread()}")
                     }*/             // this fucken part don't works! (((
-                (pActivity as MainContract.IMyMapActivity).setOnCameraIdle { locationBox -> emitter.onNext(locationBox); Log.d(TAG,"new loc box is ${locationBox}") }
+                currentActivity.setOnCameraIdle { locationBox -> emitter.onNext(locationBox); Log.d(TAG,"new loc box is ${locationBox}") }
             }
 
 
         },BackpressureStrategy.LATEST)
     }
 
-    override fun filter(): Flowable<FilterState> {
+    override fun filter(flatFilter : MainContract.IFlatFilter): Flowable<FilterState> {
 
 //        val filterFragment = pActivity as MainContract.IFlatFilterFragment
         return Flowable.create(object : FlowableOnSubscribe<FilterState> {
             override fun subscribe(emitter: FlowableEmitter<FilterState>) {
                 Log.d(TAG, "Setting setOnChangeFilter with ${emitter}")
-                (pActivity as MainContract.IMyMapActivity).setOnChangeFilter({newState ->
+                flatFilter.setOnChangeFilter({newState ->
                     emitter.onNext(newState)
                     Log.d(TAG,"current thread ${Thread.currentThread()}")
                     Log.d(TAG,"Filter ${newState}")
@@ -128,57 +128,45 @@ open class FlowProviderImpl
 
     }
 
-    override fun selectedCluster(map: GoogleMap,mapActivity: MainContract.IMyMapActivity): Flowable<ClusterMark> {
+    override fun selectedCluster(mapActivity: MainContract.IMyMapActivity): Flowable<ClusterMark> {
         return Flowable.create(object : FlowableOnSubscribe<ClusterMark> {
             override fun subscribe(emitter: FlowableEmitter<ClusterMark>) {
-               map.setOnMarkerClickListener(
+               mapActivity.setOnMarkClicked { mark-> emitter.onNext(mark) }
+/*                mapActivity.googleMap.setOnMarkerClickListener(
                        object : GoogleMap.OnMarkerClickListener{
                            override fun onMarkerClick(marker: Marker): Boolean {
                                emitter.onNext(mapActivity.getSelectedClusterMark(marker))
                                return true
                            }
                        }
-               )
+               )*/
             }
-                },BackpressureStrategy.LATEST)
+        },BackpressureStrategy.LATEST)
     }
 
-    override fun selectedFlats(cluster: Flowable<ClusterMark>): Flowable<ResultFlat> {
+    override fun selectedFlats(mapActivity: MainContract.IMyMapActivity, cluster: Flowable<ClusterMark>): Flowable<ResultFlat> {
         return Flowable.create(object : FlowableOnSubscribe<ResultFlat> {
             override fun subscribe(emitter: FlowableEmitter<ResultFlat>) {
 
-                (pActivity as MainContract.IMyMapActivity).flatResult.setOnClickFlat({flatClicked ->
+                mapActivity.flatResult.setOnClickFlat({flatClicked ->
                     emitter.onNext(flatClicked)
                 })
             }
         },BackpressureStrategy.LATEST)
     }
 
-    override fun loadFromLocalStorage(): Flowable<FilterState> {
+    override fun fromLocalStorage(): Flowable<FilterState> {
         return Flowable.create(FlowableOnSubscribe { emitter: FlowableEmitter<FilterState> ->  emitter.onNext(localStorage.loadStoredFilter()!!) }
                 ,BackpressureStrategy.LATEST)
     }
 
-    override fun saveToLocalStorageFlow(filterState: Flowable<FilterState>):Disposable {
+    override fun toLocalStorage(filterState: Flowable<FilterState>):Disposable {
         return filterState.observeOn(Schedulers.io()).subscribeOn(Schedulers.io()).subscribe({
             Log.d(TAG,"Saving ${it} to db")
             localStorage.saveFilter(it)        }
 
         )
     }
-
-
-
-
-    // todo : try to make injectable
-    override var currectActivity: Activity
-        get() = pActivity!!
-        set(value) { pActivity = value}
-
-
-
-    private var pActivity: Activity? = null
-
 
     private fun prepareGetClusterReqFunction(filter:FilterState,locationBox : Pair<CianCoords, CianCoords>):GetClusterReq {
 

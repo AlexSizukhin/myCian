@@ -1,5 +1,6 @@
 package com.shokker.mycian
 
+import android.location.Location
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
@@ -13,19 +14,20 @@ interface MainContract {
         fun updateMarks(marks:List<ClusterMark>)
         fun getSelectedClusterMark(googleMapMarker:Marker):ClusterMark
 
-        val googleMap: GoogleMap
-        val flatResult: IFlatResultFragment
-//        val flatFilter: IFlatFilterFragment
+        //val googleMap: GoogleMap
+        val flatResult: IFlatResult
+        val flatFilter: IFlatFilter
 
-        fun setOnChangeFilter(onChangeFunc: (newState:FilterState)->Unit)
         fun setOnCameraIdle(onCameraIdelFunc: (locationBox: LatLngBounds)->Unit)
-        fun loadFilterState(filterState: FilterState)
+        fun setOnMarkClicked(onMarkClickedFun:((ClusterMark)->Unit))
+
+        fun moveCamera(targetLocation: Location)
 
         fun showError(e:Throwable)
         fun showFilterDialog(hideIfVisible: Boolean)
     }
 
-    interface IFlatResultFragment
+    interface IFlatResult
     {
         fun addFlatResult(resultList: ResultFlat)
         fun clearFlatResult()
@@ -33,8 +35,10 @@ interface MainContract {
 
         fun setOnClickFlat(onClickFlatFunc: (clickedFlat:ResultFlat)->Unit)
     }
-/*    interface IFlatFilterFragment
+    interface IFlatFilter
     {
         fun setOnChangeFilter(onChangeFunc: (newState:FilterState)->Unit)
-    }*/
+        fun loadFilterState(filterState: FilterState)
+        fun showFilterDialog(hideIfVisible: Boolean)
+    }
 }

@@ -20,20 +20,20 @@ interface IReactiveModel
         val TAG = "ReactiveModelInit"
         Log.d(TAG,"God object started initialisation")
         flowProvider.apply {
-            val currentLocation = flowProvider.currentLocation()
-            compositeDisposable.add( currentLocation.map(::mapCooridnates).subscribeOn(AndroidSchedulers.mainThread()).subscribe {
+            val currentLocation = flowProvider.currentLocation(mainActivity)
+            compositeDisposable.add( currentLocation.subscribeOn(AndroidSchedulers.mainThread()).subscribe {
                 if (it != null)
-                    mainActivity.googleMap.moveCamera(CameraUpdateFactory.newLatLng(it))
+                    mainActivity.moveCamera(it)
 
             })
             Log.d(TAG,"Current thread ${Thread.currentThread()}")
-            val locationBox = mapLocationBox(mainActivity.googleMap).distinctUntilChanged() //.map(::latLngBoundsToPait)
-            val filter = filter()
+            val locationBox = mapLocationBox(mainActivity).distinctUntilChanged() //.map(::latLngBoundsToPait)
+            val filter = filter(mainActivity.flatFilter)
 
-            compositeDisposable.add(loadFromLocalStorage().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).
+            compositeDisposable.add(fromLocalStorage().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).
             subscribe({
                         Log.d(TAG,"Loading filter state from thread ${Thread.currentThread()}")
-                        mainActivity.loadFilterState(it)
+                        mainActivity.flatFilter.loadFilterState(it)
                       },
                  {
                      if(it is NullPointerException) {
@@ -44,7 +44,7 @@ interface IReactiveModel
                      }
             ))
 
-            compositeDisposable.add(saveToLocalStorageFlow(filter))
+            compositeDisposable.add(toLocalStorage(filter))
 /*            compositeDisposable.add(filter.subscribeOn(Schedulers.io()).subscribe({ Log.d(ReactiveModelInit,"fiter temp subscription ${it}")},{Log.e(ReactiveModelInit,"${it.message}")}))
             compositeDisposable.add(locationBox.subscribe({ Log.d(ReactiveModelInit,"box temp subscription ${it}")},{Log.e(ReactiveModelInit,"${it.message}")}))
 */
@@ -65,10 +65,10 @@ interface IReactiveModel
                             { ParseCompositeExceptions(it); throw it },
                             { Log.d(TAG,"all cluster added") }))
 
-            val selectedCluster = selectedCluster(mainActivity.googleMap)
+            val selectedCluster = selectedCluster(mainActivity)
             selectedCluster.subscribe { mainActivity.flatResult.clearFlatResult()            }     // check: must be before loading list
 
-            val selectedFlates = selectedFlats(selectedCluster)
+            val selectedFlates = selectedFlats(mainActivity, selectedCluster)
 /*            compositeDisposable.addAll(
             selectedFlates.subscribe({ mainActivity.flatResult.addFlatResult(it); Log.d(ReactiveModelInit,"adding result to fragment ${it}") },
                     { TODO("Parse error") },

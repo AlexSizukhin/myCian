@@ -19,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FlatListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FlatListFragment : Fragment(),MainContract.IFlatResultFragment {
+class FlatListFragment : Fragment(),MainContract.IFlatResult {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null

@@ -1,11 +1,13 @@
 package com.shokker.mycian.UI
 
 //import jdk.incubator.jpackage.internal.Arguments.CLIOptions.context
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -22,9 +24,59 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MapsActivity : AppCompatActivity(), MainContract.IMyMapActivity, IReactiveModel, OnMapReadyCallback, GoogleMap.OnCameraIdleListener { //, OnMapReadyCallback {
-    ////////////////////////////////////////////////////////////////////////////////////////////
+class MapsActivity : AppCompatActivity(),MainContract.IFlatFilter,
+                    MainContract.IMyMapActivity, IReactiveModel,
+        OnMapReadyCallback, GoogleMap.OnCameraIdleListener, GoogleMap.OnMarkerClickListener
+{ //, OnMapReadyCallback {
+    private lateinit var mGoogleMap : GoogleMap
 
+    @Inject
+    lateinit var flowProvider: IFlowProvider                    // provides all flows and observables for God :)
+
+    private lateinit var filterFragment: FilterFragment
+    private lateinit var flatListFragment: FlatListFragment
+
+
+    override val compositeDisposable = CompositeDisposable()
+    private val TAG = "Activity"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.main_activity)
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment = supportFragmentManager
+                .findFragmentById(R.id.map) as SupportMapFragment
+        filterFragment = supportFragmentManager.findFragmentById(R.id.filterFragment) as FilterFragment
+        flatListFragment=supportFragmentManager.findFragmentById(R.id.flatListFragment) as FlatListFragment
+
+        mapFragment.getMapAsync(this)
+
+    }
+    fun onFilterButtonClick(view: View)
+    {
+        Log.d(TAG, "Button ${view} clicked")
+        showFilterDialog(true)
+
+        Log.d(TAG,"current thread ${Thread.currentThread()}")
+        onChangeFlatFilter?.invoke( filterFragment.getCurrentFilterState() )           // todo Generate FilterState from Fragment
+    }
+
+    override fun onMapReady(p0: GoogleMap) {
+        mGoogleMap = p0
+        mGoogleMap.setMinZoomPreference(15f)
+        createAllFlows(flowProvider,this)       // prepare everything
+
+        mGoogleMap.setOnCameraIdleListener (this)
+        mGoogleMap.setOnMarkerClickListener(this)
+    }
+
+    override fun onDestroy() {
+        clearFlows()
+        super.onDestroy()
+    }
+    /////////////////////////////////// marks part    /////////////////////////////////////////
     override fun updateMarks(marks: List<ClusterMark>) {
         marks.forEach{
             if(markList.find { findIt-> it.location==findIt.location  } == null ) {
@@ -49,72 +101,11 @@ class MapsActivity : AppCompatActivity(), MainContract.IMyMapActivity, IReactive
     }
     private val markList = mutableListOf<ClusterMark>()
 
-    private lateinit var mGoogleMap : GoogleMap
-    override val googleMap: GoogleMap
-        get() = mGoogleMap
-
-
-    override val flatResult: MainContract.IFlatResultFragment
+    override val flatResult: MainContract.IFlatResult
         get() = flatListFragment
 
-    override fun setOnChangeFilter(onChangeFunc: (newState: FilterState) -> Unit) {
-           onChangeFlatFilter = onChangeFunc
-       }
-       private var onChangeFlatFilter: ((FilterState) -> Unit)? = null
-
-/*    override val flatFilter: MainContract.IFlatFilterFragment
-        get() = filterFragment*/
-
     ////////////////////////////////////////////////////////////////////////////////////////////
-    @Inject
-    lateinit var flowProvider: IFlowProvider                    // provides all flows and ovservables for God :)
-
-    private lateinit var filterFragment: FilterFragment
-    private lateinit var flatListFragment: FlatListFragment
-
-
-    override val compositeDisposable = CompositeDisposable()
-    private val TAG = "Activity"
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.main_activity)
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.map) as SupportMapFragment
-        filterFragment = supportFragmentManager.findFragmentById(R.id.filterFragment) as FilterFragment
-        flatListFragment=supportFragmentManager.findFragmentById(R.id.flatListFragment) as FlatListFragment
-
-        flowProvider.currectActivity = this
-        mapFragment.getMapAsync(this)
-
-    }
-    fun onFilterButtonClick(view: View)
-    {
-        Log.d(TAG, "Button ${view} clicked")
-        showFilterDialog(true)
-
-        Log.d(TAG,"current thread ${Thread.currentThread()}")
-        onChangeFlatFilter?.invoke( filterFragment.getCurrentFilterState() )           // todo Generate FilterState from Fragment
-    }
-
-    override fun onMapReady(p0: GoogleMap) {
-        mGoogleMap = p0
-        mGoogleMap.setMinZoomPreference(15f)
-        createAllFlows(flowProvider,this)       // prepare everything
-
-        mGoogleMap.setOnCameraIdleListener (this)
-        googleMap.addMarker(MarkerOptions().position(LatLng(55.849781977,37.7163779363)).title("AA"))
-    }
-
-    override fun onDestroy() {
-        clearFlows()
-        super.onDestroy()
-    }
-
-    private var lastLatLngBounds: LatLngBounds? = null
+    /////////////////////////////////////  map part ////////////////////////////////////////////
     override fun onCameraIdle() {
 //        Log.d(TAG,"OnCamIdle event calling ${onCamIdleEvent}")
 //        if(lastLatLngBounds!=mGoogleMap.projection.visibleRegion.latLngBounds)
@@ -122,13 +113,31 @@ class MapsActivity : AppCompatActivity(), MainContract.IMyMapActivity, IReactive
 //        lastLatLngBounds = mGoogleMap.projection.visibleRegion.latLngBounds
     }
 
-
     private var onCamIdleEvent: ((LatLngBounds) -> Unit)? = null
     override fun setOnCameraIdle(onCameraIdelFunc: (locationBox: LatLngBounds) -> Unit) {
         onCamIdleEvent = onCameraIdelFunc
         Log.d(TAG,"OnCamIdle set")
     }
 
+    override fun onMarkerClick(gMarker: Marker): Boolean {
+        val clusterMark = getSelectedClusterMark(gMarker)
+        onMarkClicked?.invoke(clusterMark)
+        return true
+    }
+
+    private var onMarkClicked: ((ClusterMark)->Unit)? = null
+    override fun setOnMarkClicked(onMarkClickedFun:((ClusterMark)->Unit))
+    {
+        onMarkClicked = onMarkClickedFun
+        Log.d(TAG,"onMarkClicked set")
+    }
+
+    override fun moveCamera(targetLocation: Location) {
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(targetLocation.latitude,targetLocation.longitude)))
+    }
+    ///////////////////////////////////// end of map part //////////////////////////////////
+
+    ////////////////////////////////////// filter part ////////////////////////////////////
     override fun loadFilterState(filterState: FilterState) {
         Log.d(TAG,"Setting filter state from DB ${filterState}")
         this.filterFragment.setFilterState(filterState)
@@ -149,4 +158,11 @@ class MapsActivity : AppCompatActivity(), MainContract.IMyMapActivity, IReactive
             ft.hide(filterFragment)
         ft.commit()
     }
+    override fun setOnChangeFilter(onChangeFunc: (newState: FilterState) -> Unit) {
+        onChangeFlatFilter = onChangeFunc
+    }
+    private var onChangeFlatFilter: ((FilterState) -> Unit)? = null
+
+    override val flatFilter: MainContract.IFlatFilter
+        get() = this
 }
