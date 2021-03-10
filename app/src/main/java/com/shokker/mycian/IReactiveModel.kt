@@ -21,9 +21,11 @@ interface IReactiveModel
         Log.d(TAG,"God object started initialisation")
         flowProvider.apply {
             val currentLocation = flowProvider.currentLocation(mainActivity)
-            compositeDisposable.add( currentLocation.subscribeOn(AndroidSchedulers.mainThread()).subscribe {
-                if (it != null)
-                    mainActivity.moveCamera(it)
+            compositeDisposable.add( currentLocation
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (it != null)
+                            mainActivity.moveCamera(it)
 
             })
             Log.d(TAG,"Current thread ${Thread.currentThread()}")
