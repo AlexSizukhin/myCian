@@ -21,8 +21,9 @@ interface IFlowProvider {
 
     fun filter():Flowable<FilterState>
     fun cluster(filter:Flowable<FilterState>,locationBox: Flowable<Pair<CianCoords,CianCoords>>):Flowable<MapResponse>
-    fun selectedCluster(map: GoogleMap):Flowable<ClusterMark>
+    fun selectedCluster(map: GoogleMap,mapActivity: MainContract.IMyMapActivity):Flowable<ClusterMark>
     fun selectedFlats(cluster:Flowable<ClusterMark>): Flowable<ResultFlat>
+
     fun saveToLocalStorageFlow(filterState: Flowable<FilterState>):Disposable
     fun loadFromLocalStorage():Flowable<FilterState>
 

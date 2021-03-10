@@ -14,7 +14,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 
-@HiltAndroidTest
+/*@HiltAndroidTest
 @UninstallModules(FlowProviderModule::class)
 //@RunWith(AndroidJUnit4::class)
 //@LargeTest
@@ -40,4 +40,4 @@ class TestSkeleton {
     {
         Thread.sleep(10000)
     }
-}
+}*/

@@ -2,6 +2,7 @@ package com.shokker.mycian
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
 import com.shokker.mycian.Model.ClusterMark
 import com.shokker.mycian.Model.FilterState
 import com.shokker.mycian.Model.ResultFlat
@@ -10,6 +11,7 @@ interface MainContract {
     interface IMyMapActivity
     {
         fun updateMarks(marks:List<ClusterMark>)
+        fun getSelectedClusterMark(googleMapMarker:Marker):ClusterMark
 
         val googleMap: GoogleMap
         val flatResult: IFlatResultFragment

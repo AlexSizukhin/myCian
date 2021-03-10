@@ -64,11 +64,12 @@ interface IReactiveModel
                     .subscribe({ mainActivity.updateMarks(it); Log.d("God","adding cluster ${it}") },
                             { ParseCompositeExceptions(it); throw it },
                             { Log.d(TAG,"all cluster added") }))
-/*
+
             val selectedCluster = selectedCluster(mainActivity.googleMap)
+            selectedCluster.subscribe { mainActivity.flatResult.clearFlatResult()            }     // check: must be before loading list
 
             val selectedFlates = selectedFlats(selectedCluster)
-            compositeDisposable.addAll(
+/*            compositeDisposable.addAll(
             selectedFlates.subscribe({ mainActivity.flatResult.addFlatResult(it); Log.d(ReactiveModelInit,"adding result to fragment ${it}") },
                     { TODO("Parse error") },
                     { mainActivity.flatResult.flatResultLoaded(); Log.d(ReactiveModelInit,"all flated added to result ") }

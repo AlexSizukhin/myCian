@@ -11,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.shokker.mycian.*
 import com.shokker.mycian.Model.ClusterMark
@@ -41,6 +42,10 @@ class MapsActivity : AppCompatActivity(), MainContract.IMyMapActivity, IReactive
         marks.forEach{
             it.linkedMarker?.isVisible = it.visible
         }
+    }
+
+    override fun getSelectedClusterMark(googleMapMarker: Marker):ClusterMark {
+        return markList.findLast { it.linkedMarker == googleMapMarker }!!
     }
     private val markList = mutableListOf<ClusterMark>()
 

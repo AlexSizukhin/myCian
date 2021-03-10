@@ -27,10 +27,10 @@ import javax.inject.Inject
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-@HiltAndroidTest
-@UninstallModules(FlowProviderModule::class)
+//@HiltAndroidTest
+//@UninstallModules(FlowProviderModule::class)
 class SimpleUITests {
-
+/*
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
     @get: Rule
@@ -98,5 +98,5 @@ class SimpleUITests {
     fun webViewFragmentOpensOnFlatClick()
     {
         TODO()
-    }
+    }*/
 }

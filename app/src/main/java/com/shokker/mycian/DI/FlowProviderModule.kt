@@ -128,13 +128,13 @@ open class FlowProviderImpl
 
     }
 
-    override fun selectedCluster(map: GoogleMap): Flowable<ClusterMark> {
+    override fun selectedCluster(map: GoogleMap,mapActivity: MainContract.IMyMapActivity): Flowable<ClusterMark> {
         return Flowable.create(object : FlowableOnSubscribe<ClusterMark> {
             override fun subscribe(emitter: FlowableEmitter<ClusterMark>) {
                map.setOnMarkerClickListener(
                        object : GoogleMap.OnMarkerClickListener{
                            override fun onMarkerClick(marker: Marker): Boolean {
-                               emitter.onNext(ClusterMark.getMark(marker))
+                               emitter.onNext(mapActivity.getSelectedClusterMark(marker))
                                return true
                            }
                        }
