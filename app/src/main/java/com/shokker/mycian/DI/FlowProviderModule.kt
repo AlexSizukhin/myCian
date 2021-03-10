@@ -132,14 +132,6 @@ open class FlowProviderImpl
         return Flowable.create(object : FlowableOnSubscribe<ClusterMark> {
             override fun subscribe(emitter: FlowableEmitter<ClusterMark>) {
                mapActivity.setOnMarkClicked { mark-> emitter.onNext(mark) }
-/*                mapActivity.googleMap.setOnMarkerClickListener(
-                       object : GoogleMap.OnMarkerClickListener{
-                           override fun onMarkerClick(marker: Marker): Boolean {
-                               emitter.onNext(mapActivity.getSelectedClusterMark(marker))
-                               return true
-                           }
-                       }
-               )*/
             }
         },BackpressureStrategy.LATEST)
     }
