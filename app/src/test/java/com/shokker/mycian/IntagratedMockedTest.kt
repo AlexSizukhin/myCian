@@ -40,42 +40,20 @@ class IntagratedMockedTest {
         val reactiveModel = ReactiveModelForTests()
         //reactiveModel.createAllFlows(flowProviderMock, activityMock)
         val x = flowProviderMock.currentLocation(activityMock)
-        x.subscribe { println(it.toString())}               // todo test values , test counter, 
+        x.subscribe { println(it.toString())}               // todo test values , test counter,
         Thread.sleep(100)
 
     }
 
     @Test
-    fun testSmth()
+    fun testCameraMovingOnCoordinates()
     {
         val activityMock = ActivityMock()
         val flowProviderMock = FlowProviderMock()
         val reactiveModel = ReactiveModelForTests()
     }
 }
-class MockLocation():Location("null")
-{
-    private var latLng = LatLng(0.0,0.0)
-    override fun getLatitude(): Double {
-        return latLng.latitude
-    }
 
-    override fun setLatitude(latitude: Double) {
-        latLng =  LatLng(latitude,latLng.longitude)
-    }
-
-    override fun getLongitude(): Double {
-        return latLng.longitude
-    }
-
-    override fun setLongitude(longitude: Double) {
-        latLng =  LatLng(latLng.latitude,longitude)
-    }
-
-    override fun toString(): String {
-        return "[gps ${latLng.latitude},${latLng.longitude}]"
-    }
-}
 
 
 class ReactiveModelForTests
