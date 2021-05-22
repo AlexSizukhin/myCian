@@ -14,8 +14,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.testing.UninstallModules
 import dagger.hilt.components.SingletonComponent
 import io.reactivex.Flowable
+import javax.inject.Named
 import javax.inject.Singleton
-/*
+
 @Module
 @InstallIn(SingletonComponent::class)
 class FlowForTestImplModule{
@@ -28,25 +29,5 @@ class FlowProviderSimpleImpl: FlowProviderImpl() {
     init {
         Log.d("T","SimpleFlowProvider created")
     }
-    override fun currentLocation(): Flowable<Location> {
-        return Flowable.just(Location("37.622504,55.7532"))
-    }
 
-
-
-    override fun filter(): Flowable<FilterState> {
-        TODO()
-    }
-
-
-
-    override fun selectedCluster(map: GoogleMap): Flowable<ClusterMark> {
-        TODO()
-    }
-
-    override fun selectedFlats(cluster: Flowable<ClusterMark>): Flowable<ResultFlat> {
-        return Flowable.just(ResultFlat())
-    }
-
-
-}*/
+}

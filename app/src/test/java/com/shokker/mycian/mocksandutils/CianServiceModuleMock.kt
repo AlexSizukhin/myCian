@@ -1,6 +1,7 @@
-package com.shokker.mycian
+package com.shokker.mycian.mocksandutils
 
 import android.util.Log
+import com.shokker.mycian.CianLocationServiceApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -21,30 +21,31 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Instrumented test, which will execute on an Android device.
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-//@HiltAndroidTest
-//@UninstallModules(FlowProviderModule::class)
+@HiltAndroidTest
+@UninstallModules(FlowProviderModule::class)
 class SimpleUITests {
-/*
+
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
     @get: Rule
     val activityRule: ActivityScenarioRule<MapsActivity> = ActivityScenarioRule(MapsActivity::class.java)
 
-    @Inject
-    lateinit var flowProviderSimpleImpl: IFlowProvider
+  /*  @Inject
+    lateinit var flowProviderSimpleImpl: IFlowProvider*/
 
     @Before
     fun prepare()
     {
-        hiltRule.inject()
-        //    Log.d("Test", "On @Before injected ${fakeSettings}")
-        //    Log.d("Test", "On @Before injected ${fakeGenerator}")
+       hiltRule.inject()
+        //   Log.d("Test", "On @Before injected ${flowProviderSimpleImpl}")
+           // Log.d("Test", "On @Before injected ${fakeGenerator}")
     }
 
 
@@ -98,5 +99,5 @@ class SimpleUITests {
     fun webViewFragmentOpensOnFlatClick()
     {
         TODO()
-    }*/
+    }
 }

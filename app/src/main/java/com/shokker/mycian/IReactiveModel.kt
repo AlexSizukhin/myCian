@@ -68,14 +68,16 @@ interface IReactiveModel
                             { Log.d(TAG,"all cluster added") }))
 
             val selectedCluster = selectedCluster(mainActivity)
-            selectedCluster.subscribe { mainActivity.flatResult.clearFlatResult()            }     // check: must be before loading list
+            compositeDisposable.add(selectedCluster.subscribe { mainActivity.flatResult.clearFlatResult()            } )    // check: must be before loading list
 
             val selectedFlates = selectedFlats(mainActivity, selectedCluster)
-/*            compositeDisposable.addAll(
-            selectedFlates.subscribe({ mainActivity.flatResult.addFlatResult(it); Log.d(ReactiveModelInit,"adding result to fragment ${it}") },
+
+            compositeDisposable.add(
+            selectedFlates.subscribe({ mainActivity.flatResult.addFlatResult(it);
+                Log.d("ReactiveModelInit","adding result to fragment ${it}") },
                     { TODO("Parse error") },
-                    { mainActivity.flatResult.flatResultLoaded(); Log.d(ReactiveModelInit,"all flated added to result ") }
-            ))*/
+                    { mainActivity.flatResult.flatResultLoaded(); Log.d("ReactiveModelInit","all flated added to result ") }
+            ))
 
 
         }

@@ -1,4 +1,4 @@
-package com.shokker.mycian
+package com.shokker.mycian.mocksandutils
 
 import android.location.Location
 import com.google.android.gms.maps.model.LatLng
@@ -26,5 +26,12 @@ class MockLocation(): Location("null")
 
     override fun toString(): String {
         return "[gps ${latLng.latitude},${latLng.longitude}]"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if(other is MockLocation)
+            return other.latLng == latLng
+
+        return super.equals(other)
     }
 }

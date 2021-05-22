@@ -1,10 +1,9 @@
-package com.shokker.mycian
+package com.shokker.mycian.mocksandutils
 
 import android.location.Location
 import com.shokker.mycian.DI.FlowProviderImpl
-import io.reactivex.BackpressureStrategy
+import com.shokker.mycian.MainContract
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
 class FlowProviderMock:FlowProviderImpl() {

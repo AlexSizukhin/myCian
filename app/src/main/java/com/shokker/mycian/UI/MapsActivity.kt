@@ -21,6 +21,7 @@ import com.shokker.mycian.Model.FilterState
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
+import javax.inject.Named
 
 
 @AndroidEntryPoint

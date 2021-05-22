@@ -1,0 +1,30 @@
+{
+  "id": 4,
+  "time": 1618255929,
+  "camera_model": "LG-H870DS",
+  "sm_lib_version": "11.1.7",
+  "pitch": 12.621529,
+  "roll": 87.69235,
+  "azimuth": 6,
+  "exif_orientation": 6,
+  "pitch_real": 12.621528625488281,
+  "roll_real": 87.69235229492188,
+  "azimuth_real": 0,
+  "accel": {
+    "x": 0.40600586,
+    "y": 9.514923,
+    "z": 2.4097137
+  },
+  "magnetic": {
+    "x": 3724670.5,
+    "y": -22531128,
+    "z": -9655762
+  },
+  "orientation": 90,
+  "url": "https://i.tr-portal.ru/l/TR_IR_Photos/2021/04/13/8f113f52-03d9-47fa-a1bc-5da74cf93bf9_4.jpg",
+  "xyz": [
+    12.621529,
+    87.69235,
+    87.69235
+  ]
+}
